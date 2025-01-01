@@ -26,9 +26,7 @@ This project is a web-based application that manages student-teacher meetings. I
     - **Users**: Contains data about students and professors, including hashed passwords.
     - **Meetings**: Manages scheduled meetings between students and professors.
 
-### Deployment:
-- **AWS Instance**: Both the frontend and backend are deployed on an AWS instance.
-- **Environment Variables**: Not yet implemented; sensitive details are currently hardcoded in the code.
+
 
 ---
 
