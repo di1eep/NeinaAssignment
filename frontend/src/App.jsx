@@ -20,7 +20,7 @@ function App() {
   const fetchSlots = async (selectedDate) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/api/getSlots?date=${selectedDate}`);
+      const response = await axios.get(`https://neinaassignmentbackend.onrender.com/api/getSlots?date=${selectedDate}`);
       setSlots(response.data || []); 
     } catch (error) {
       console.error("Error fetching slots:", error);
@@ -49,7 +49,7 @@ function App() {
     };
 
     try {
-      await axios.post('http://localhost:3000/api/bookSlot', bookingData);
+      await axios.post('https://neinaassignmentbackend.onrender.com/api/bookSlot', bookingData);
       alert('Booking successful');
       fetchSlots(date.toISOString().split('T')[0]); 
     } catch (error) {
@@ -71,7 +71,7 @@ function App() {
     };
 
     try {
-      await axios.delete('http://localhost:3000/api/deleteBooking', { data: deleteData });
+      await axios.delete('https://neinaassignmentbackend.onrender.com/api/deleteBooking', { data: deleteData });
       alert('Booking deleted successfully');
       fetchSlots(date.toISOString().split('T')[0]); 
     } catch (error) {
