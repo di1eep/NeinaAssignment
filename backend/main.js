@@ -6,13 +6,11 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors(
-  {
-origin: 'https://splendorous-pavlova-2711ba.netlify.app/',
-methods: ['GET', 'POST', 'DELETE'],
-credentials: true
-  }
-));
+app.use(cors({
+  origin: 'https://splendorous-pavlova-2711ba.netlify.app',
+  methods: ['GET', 'POST', 'DELETE'],
+  credentials: true
+}));
 
 
 app.use(bodyParser.json());
