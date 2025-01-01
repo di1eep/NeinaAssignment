@@ -37,9 +37,21 @@ exports.bookSlot = async (req, res) => {
     if (!existingBooking) {
       return res.status(404).json({ message: 'Slot not found.' });
     }
+
+
+    const isDuplicate = existingBooking.bookings.some(
+      (booking) => booking.contact === contact
+    );
+    if (isDuplicate) {
+      return res
+        .status(400)
+        .json({ message: 'multiple booking not allowed for the same for same day.' });
+    }
+
     if (existingBooking.availableSeats < seats) {
       return res.status(400).json({ message: 'Not enough available seats.' });
     }
+
     existingBooking.bookings.push({ name, contact, seats });
     existingBooking.availableSeats -= seats;
     await existingBooking.save();
@@ -48,6 +60,7 @@ exports.bookSlot = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 exports.getSlots = async (req, res) => {
   const { date } = req.query;
