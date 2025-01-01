@@ -10,7 +10,7 @@ function App() {
   const [contact, setContact] = useState('');
   const [seats, setSeats] = useState(1);
   const [selectedSlot, setSelectedSlot] = useState(null);
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const formattedDate = date.toISOString().split('T')[0]; 
@@ -18,16 +18,15 @@ function App() {
   }, [date]);
 
   const fetchSlots = async (selectedDate) => {
+    setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/api/slots?date=${selectedDate}`);
-      if (response.data && response.data.length > 0) {
-        setSlots(response.data); 
-      } else {
-        setSlots([]); 
-      }
+      const response = await axios.get(`http://localhost:3000/api/getSlots?date=${selectedDate}`);
+      setSlots(response.data || []); 
     } catch (error) {
       console.error("Error fetching slots:", error);
       setSlots([]); 
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -48,7 +47,6 @@ function App() {
       contact,
       seats
     };
-
 
     try {
       await axios.post('http://localhost:3000/api/bookSlot', bookingData);
@@ -82,7 +80,6 @@ function App() {
     }
   };
 
-
   const handleDateChange = (newDate) => {
     const correctedDate = new Date(Date.UTC(newDate.getFullYear(), newDate.getMonth(), newDate.getDate()));
     setDate(correctedDate);
@@ -100,27 +97,29 @@ function App() {
         </div>
         <div style={{ flexGrow: 1 }}>
           <h2>Available Slots for {date.toISOString().split('T')[0]}</h2>
-          {slots.length === 0 ? (
-            <p>No slots available for this date.</p>
-          ) : (
-            <div>
-              {slots.map((slot) => (
-                <div key={slot._id} style={{ marginBottom: '10px' }}>
-                  <button
-                    style={{
-                      padding: '10px',
-                      margin: '5px',
-                      backgroundColor: 'lightblue',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => handleSlotClick(slot)}
-                  >
-                    {slot.time} - {slot.availableSeats} Seats Available
-                  </button>
-                </div>
-              ))}
-            </div>
+          {loading ? <p>Loading...</p> : (
+            slots.length === 0 ? (
+              <p>No slots available for this date.</p>
+            ) : (
+              <div>
+                {slots.map((slot) => (
+                  <div key={slot._id} style={{ marginBottom: '10px' }}>
+                    <button
+                      style={{
+                        padding: '10px',
+                        margin: '5px',
+                        backgroundColor: 'lightblue',
+                        border: 'none',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => handleSlotClick(slot)}
+                    >
+                      {slot.time} - {slot.availableSeats} Seats Available
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )
           )}
 
           {selectedSlot && (
