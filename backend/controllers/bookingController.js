@@ -70,6 +70,12 @@ exports.getSlots = async (req, res) => {
   }
 };
 
+
+
+
+
+
+
 exports.deleteBooking = async (req, res) => {
   const { date, time, contact } = req.body;
   try {

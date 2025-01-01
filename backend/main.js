@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors(
   {
-origin: 'http://localhost:8080',
+origin: 'http://deploy-mern-1whq.vercel.app',
 methods: ['GET', 'POST', 'DELETE'],
 credentials: true
   }
@@ -20,6 +20,11 @@ app.use(bodyParser.json());
 const bookingRoutes = require('./routes/bookingRoutes');
 
 app.use('/api', bookingRoutes);
+
+app.get('/', function (req, res) {
+  res.send
+
+
 
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
