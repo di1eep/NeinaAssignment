@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors(
   {
-origin: 'http://deploy-mern-1whq.vercel.app',
+origin: 'https://splendorous-pavlova-2711ba.netlify.app/',
 methods: ['GET', 'POST', 'DELETE'],
 credentials: true
   }
