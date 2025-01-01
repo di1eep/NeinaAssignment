@@ -22,7 +22,8 @@ const bookingRoutes = require('./routes/bookingRoutes');
 app.use('/api', bookingRoutes);
 
 app.get('/', function (req, res) {
-  res.send
+  res.send('Hello World')
+})
 
 
 
