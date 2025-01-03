@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-  origin: 'https://splendorous-pavlova-2711ba.netlify.app',
+  origin: 'https://celebrated-naiad-0c095a.netlify.app',
   methods: ['GET', 'POST', 'DELETE'],
   credentials: true
 }));
